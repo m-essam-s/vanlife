@@ -1,8 +1,18 @@
 import { createServer, Model } from "miragejs"
 
+// Define the shape of a Van model in TypeScript
+interface Van {
+    id: string;
+    name: string;
+    price: number;
+    description: string;
+    imageUrl: string;
+    type: string;
+}
+
 createServer({
     models: {
-        vans: Model,
+        van: Model.extend<Partial<Van>>({}), // Partial allows fields to be optional at first
     },
 
     seeds(server) {
@@ -15,16 +25,15 @@ createServer({
     },
 
     routes() {
-        this.namespace = "api"
-        this.logging = false
+        this.namespace = "api";
 
-        this.get("/vans", (schema, request) => {
-            return schema.vans.all()
-        })
+        this.get("/vans", (schema) => {
+            return schema.all("van"); // TypeScript recognizes this
+        });
 
         this.get("/vans/:id", (schema, request) => {
-            const id = request.params.id
-            return schema.vans.find(id)
-        })
+            const id = request.params.id;
+            return schema.find("van", id);
+        });
     }
-})
+});
