@@ -6,8 +6,7 @@ import VanDetail from "./pages/VanDetail"
 import "./server"
 import './App.css'
 
-const App = () => {
-
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <header>
