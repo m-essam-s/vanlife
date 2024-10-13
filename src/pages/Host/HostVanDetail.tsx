@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 interface Van {
@@ -27,6 +27,11 @@ const HostVanDetail = () => {
 
     return (
         <section>
+            <Link
+                to=".."
+                className="back-button"
+            >&larr; <span>Back to all vans</span></Link>
+
             <div className="host-van-detail-layout-container">
                 <div className="host-van-detail">
                     <img src={currentVan.imageUrl} />
