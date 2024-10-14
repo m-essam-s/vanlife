@@ -1,16 +1,22 @@
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, NavLink, Outlet } from "react-router-dom"
 import { useEffect, useState } from "react"
 
-interface Van {
+export interface Van {
     id: number;
     name: string;
     price: number;
     imageUrl: string;
     hostId: number;
     type: string;
+    description: string;
 }
 
 const HostVanDetail = () => {
+    const activeStyles = {
+        fontWeight: "bold",
+        textDecoration: "underline",
+        color: "#161616"
+    }
     const { id } = useParams()
     const [currentVan, setCurrentVan] = useState<Van | null>(null)
 
@@ -26,7 +32,7 @@ const HostVanDetail = () => {
     }
 
     return (
-        <section>
+        <section className="van-detail-container">
             <Link
                 to=".."
                 relative="path"
@@ -46,6 +52,28 @@ const HostVanDetail = () => {
                         <h4>${currentVan.price}/day</h4>
                     </div>
                 </div>
+                <nav className="host-van-detail-nav">
+                    <NavLink
+                        to="."
+                        end
+                        style={({ isActive }) => isActive ? activeStyles : undefined}
+                    >
+                        Details
+                    </NavLink>
+                    <NavLink
+                        to="pricing"
+                        style={({ isActive }) => isActive ? activeStyles : undefined}
+                    >
+                        Pricing
+                    </NavLink>
+                    <NavLink
+                        to="photos"
+                        style={({ isActive }) => isActive ? activeStyles : undefined}
+                    >
+                        Photos
+                    </NavLink>
+                </nav>
+                <Outlet context={{ currentVan }} />
             </div>
         </section>
     )
