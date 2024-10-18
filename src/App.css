@@ -211,6 +211,12 @@ footer {
   cursor: pointer;
 }
 
+.van-list-filter-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
 .van-type {
   height: 34px;
   padding: 6px 26px;
