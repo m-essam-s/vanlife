@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { getVans } from "../../api"
 
 interface Van {
     id: string;
@@ -15,9 +16,11 @@ const Vans = () => {
     const [vans, setVans] = useState([] as Van[])
 
     useEffect(() => {
-        fetch("/api/vans")
-            .then(res => res.json())
-            .then(data => setVans(data.vans))
+        const fetchVans = async () => {
+            const data = await getVans()
+            setVans(data)
+        }
+        fetchVans()
     }, [])
 
     const [searchParams, setSearchParams] = useSearchParams()
