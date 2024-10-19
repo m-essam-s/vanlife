@@ -185,7 +185,7 @@ footer {
 
 /*** VAN PAGES ***/
 .van-list-container {
-  padding-inline: 23px
+  padding: 23px
 }
 
 .van-list {
@@ -270,7 +270,7 @@ i[class*='van-type-'] {
 /*** VAN DETAILS PAGES ***/
 
 .van-detail-container {
-  padding-top: 27px;
+  padding: 27px;
 }
 
 .van-detail-container .back-button {
