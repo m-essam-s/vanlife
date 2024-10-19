@@ -44,26 +44,42 @@ const Vans = () => {
         </div>
     ))
 
+    function handleFilterChange(key: string, value: string | null) {
+        setSearchParams(prevParams => {
+            if (value === null) {
+                prevParams.delete(key)
+            } else {
+                prevParams.set(key, value)
+            }
+            return prevParams
+        })
+    }
+
     return (
         <div className="van-list-container">
             <h1>Explore our van options</h1>
             <div className="van-list-filter-buttons">
+
                 <button
                     className="van-type simple"
-                    onClick={() => setSearchParams({ type: "simple" })}
+                    onClick={() => handleFilterChange("type", "simple")}
                 >Simple</button>
+
                 <button
                     className="van-type luxury"
-                    onClick={() => setSearchParams({ type: "luxury" })}
+                    onClick={() => handleFilterChange("type", "luxury")}
                 >Luxury</button>
+
                 <button
                     className="van-type rugged"
-                    onClick={() => setSearchParams({ type: "rugged" })}
+                    onClick={() => handleFilterChange("type", "rugged")}
                 >Rugged</button>
-                <button
+
+                {typeFilter && <button
                     className="van-type clear-filters"
-                    onClick={() => setSearchParams({})}
-                >Clear filter</button>
+                    onClick={() => handleFilterChange("type", null)}
+                >Clear filter</button>}
+
             </div>
             <div className="van-list">
                 {vanElements}
