@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 
 interface Van {
     id: string;
@@ -13,7 +13,6 @@ interface Van {
 const VanDetail: React.FC = () => {
 
     const params = useParams();
-    console.log(params);
 
     const [van, setVan] = useState<Van | null>(null);
 
@@ -24,9 +23,18 @@ const VanDetail: React.FC = () => {
 
     }, [params.id])
 
-    console.log(van);
+    const location = useLocation();
+
+    const search = location.state?.search || ""
+    const type = location.state?.type || "all"
+
     return (
         <div className="van-detail-container">
+            <Link
+                to={`..${search}`}
+                relative="path"
+                className="back-button"
+            >&larr; <span>{`Back to ${type.toString()} vans`}</span></Link>
             {van ? (
                 <div className="van-detail">
                     <img src={van.imageUrl} />
