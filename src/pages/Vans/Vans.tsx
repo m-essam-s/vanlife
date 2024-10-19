@@ -61,24 +61,34 @@ const Vans = () => {
             <div className="van-list-filter-buttons">
 
                 <button
-                    className="van-type simple"
+                    className={
+                        `van-type simple ${typeFilter === "simple" ? 'selected' : ''}`
+                    }
                     onClick={() => handleFilterChange("type", "simple")}
                 >Simple</button>
 
                 <button
-                    className="van-type luxury"
+                    className={
+                        `van-type luxury ${typeFilter === "luxury" ? 'selected' : ''}`
+                    }
                     onClick={() => handleFilterChange("type", "luxury")}
                 >Luxury</button>
 
                 <button
-                    className="van-type rugged"
+                    className={
+                        `van-type rugged ${typeFilter === "rugged" ? 'selected' : ''}`
+                    }
                     onClick={() => handleFilterChange("type", "rugged")}
                 >Rugged</button>
 
-                {typeFilter && <button
-                    className="van-type clear-filters"
-                    onClick={() => handleFilterChange("type", null)}
-                >Clear filter</button>}
+                {
+                    typeFilter
+                    &&
+                    <button
+                        className="van-type clear-filters"
+                        onClick={() => handleFilterChange("type", null)}
+                    >Clear filter</button>
+                }
 
             </div>
             <div className="van-list">
