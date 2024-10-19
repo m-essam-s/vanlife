@@ -465,6 +465,16 @@ a.active-link {
   border-radius: 5px;
 }
 
+.not-found-container {
+  padding: 26px;
+}
+
+.not-found-container .link-button {
+  width: 100%;
+  background-color: #161616;
+  color: white;
+}
+
 @media (max-width: 580px) {
   #root {
     margin: 10px;
