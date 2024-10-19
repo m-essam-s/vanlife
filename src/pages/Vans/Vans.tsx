@@ -14,11 +14,14 @@ interface Van {
 const Vans = () => {
 
     const [vans, setVans] = useState([] as Van[])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const fetchVans = async () => {
+            setLoading(true)
             const data = await getVans()
             setVans(data)
+            setLoading(false)
         }
         fetchVans()
     }, [])
@@ -60,6 +63,10 @@ const Vans = () => {
             }
             return prevParams
         })
+    }
+
+    if (loading) {
+        return <h1>Loading...</h1>
     }
 
     return (
