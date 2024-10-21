@@ -29,11 +29,16 @@ import HostVanPhotos from "./pages/Host/HostVanPhotos"
 
 import NotFound from "./pages/NotFound"
 import Error from "./components/Error"
+import Login from "./Login"
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
     <Route path="about" element={<About />} />
+    <Route
+      path="login"
+      element={<Login />}
+    />
     <Route
       path="vans"
       element={<Vans />}

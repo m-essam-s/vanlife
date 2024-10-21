@@ -20,6 +20,12 @@ const Header = () => {
                     to="/vans"
                 >
                     Vans</NavLink>
+                <NavLink to="login" className="login-link">
+                    <img
+                        src="/avatar-icon.png"
+                        className="login-icon"
+                    />
+                </NavLink>
             </nav>
         </header>
     )
