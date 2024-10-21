@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { getVans } from "../../api"
+import { useState } from "react";
+import { Link, useLoaderData, useSearchParams } from "react-router-dom";
+import { loader } from "../../loader";
 
 interface Van {
     id: string;
@@ -11,28 +11,15 @@ interface Van {
     type: string;
 }
 
+loader()
+
 const Vans = () => {
 
-    const [vans, setVans] = useState([] as Van[])
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState<Error | null>(null)
-
-    useEffect(() => {
-        const fetchVans = async () => {
-            setLoading(true)
-            try {
-                const data = await getVans()
-                setVans(data)
-            } catch (err) {
-                setError(err as Error)
-            } finally {
-                setLoading(false)
-            }
-        }
-        fetchVans()
-    }, [])
-
     const [searchParams, setSearchParams] = useSearchParams()
+    const [error] = useState<Error | null>(null)
+
+    const vans = useLoaderData() as Van[]
+
     const typeFilter = searchParams.get("type")
 
     const filteredVans = typeFilter
@@ -69,10 +56,6 @@ const Vans = () => {
             }
             return prevParams
         })
-    }
-
-    if (loading) {
-        return <h1>Loading...</h1>
     }
 
     if (error) {
