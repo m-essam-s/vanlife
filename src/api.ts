@@ -23,7 +23,7 @@ const getVans = async (id: string): Promise<Van[] | Van> => {
     return id ? data.van : data.vans; // Return a single van if ID is provided
 };
 
-const getHostVans = async (id: string | null): Promise<Van[] | Van> => {
+const getHostVans = async (id: string): Promise<Van[] | Van> => {
     const url = id ? `/api/host/vans/${id}` : "/api/host/vans";
     const res = await fetch(url);
 
@@ -36,7 +36,7 @@ const getHostVans = async (id: string | null): Promise<Van[] | Van> => {
     }
 
     const data = await res.json();
-    return id ? data.van : data.vans;
+    return id ? data.vans[0] : data.vans;
 };
 
 export { getVans, getHostVans };
