@@ -1,22 +1,25 @@
-import { Link } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { Link, useLoaderData } from "react-router-dom"
+import { getHostVans } from "../../api"
 
 interface Van {
-    id: number;
+    id: string;
     name: string;
     price: number;
+    description: string;
     imageUrl: string;
-    hostId: number;
+    type: string;
+    hostId: string;
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export function loader() {
+    return getHostVans(""); // null is passed to get all vans
 }
 
 const HostVans = () => {
-    const [vans, setVans] = useState<Van[]>([])
 
-    useEffect(() => {
-        fetch("/api/host/vans")
-            .then(res => res.json())
-            .then(data => setVans(data.vans))
-    }, [])
+    const vans = useLoaderData() as Van[]
+
     const hostVansEls = vans.map(van => (
         <Link
             to={`./${van.id}`}
@@ -37,16 +40,9 @@ const HostVans = () => {
         <section>
             <h1 className="host-vans-title">Your listed vans</h1>
             <div className="host-vans-list">
-                {
-                    vans.length > 0 ? (
-                        <section>
-                            {hostVansEls}
-                        </section>
-
-                    ) : (
-                        <h2>Loading...</h2>
-                    )
-                }
+                <section>
+                    {hostVansEls}
+                </section>
             </div>
         </section>
     )

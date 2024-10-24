@@ -1,34 +1,40 @@
-import { useParams, Link, NavLink, Outlet } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { Link, NavLink, Outlet, useLoaderData, LoaderFunctionArgs } from "react-router-dom"
+import { getHostVans } from "../../api"
 
-export interface Van {
-    id: number;
+interface Van {
+    id: string;
     name: string;
     price: number;
-    imageUrl: string;
-    hostId: number;
-    type: string;
     description: string;
+    imageUrl: string;
+    type: string;
+    hostId: string;
 }
 
-const HostVanDetail = () => {
+// eslint-disable-next-line react-refresh/only-export-components
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+    if (!params?.id) {
+        // If there's no ID in params, throw 404 error
+        throw new Response("Van ID not found", { status: 404 });
+    }
+
+    try {
+        const van = await getHostVans(params.id as string) as Van;
+        return van;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+        // Handle errors
+        throw new Response("Van not found", { status: 404 });
+    }
+};
+
+const HostVanDetail: React.FC = () => {
+    const currentVan = useLoaderData() as Van;
+
     const activeStyles = {
         fontWeight: "bold",
         textDecoration: "underline",
         color: "#161616"
-    }
-    const { id } = useParams()
-    const [currentVan, setCurrentVan] = useState<Van | null>(null)
-
-    useEffect(() => {
-        fetch(`/api/host/vans/${id}`)
-            .then(res => res.json())
-            .then(data => setCurrentVan(data.vans[0]))
-    }, [id])
-
-    console.log(currentVan)
-    if (!currentVan) {
-        return <h1>Loading...</h1>
     }
 
     return (

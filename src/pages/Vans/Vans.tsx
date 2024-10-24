@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLoaderData, useSearchParams } from "react-router-dom";
-import { loader } from "../../loader";
+import { getVans } from "../../api";
 
 interface Van {
     id: string;
@@ -11,9 +11,12 @@ interface Van {
     type: string;
 }
 
-loader()
+// eslint-disable-next-line react-refresh/only-export-components
+export function loader() {
+    return getVans(""); // null is passed to get all vans
+}
 
-const Vans = () => {
+const Vans: React.FC = () => {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [error] = useState<Error | null>(null)
