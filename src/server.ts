@@ -2,7 +2,7 @@ import { createServer, Model, Registry } from "miragejs";
 import { ModelDefinition } from "miragejs/-types";
 import Schema from "miragejs/orm/schema";
 
-// Define the shape of a Van model in TypeScript
+// Define the shape of a Van model
 interface Van {
     id: string;
     name: string;
@@ -13,15 +13,14 @@ interface Van {
     hostId: string;
 }
 
-// Define the registry and schema type for Mirage JS
-
+// Define the registry and schema type
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type AppRegistry = Registry<{ van: ModelDefinition<Van> }, {}>;
 type AppSchema = Schema<AppRegistry>;
 
 createServer({
     models: {
-        van: Model.extend<Partial<Van>>({}), // Partial allows fields to be optional at first
+        van: Model.extend<Partial<Van>>({}),
     },
 
     seeds(server) {
@@ -35,18 +34,16 @@ createServer({
 
     routes() {
         this.namespace = "api";
-        this.logging = false
-        // this.timing = 2000
 
         // Get all vans
         this.get("/vans", (schema: AppSchema) => {
-            return schema.all("van"); // Fetch all vans
+            return schema.all("van");
         });
 
         // Get a specific van by ID
         this.get("/vans/:id", (schema: AppSchema, request) => {
             const id = request.params.id;
-            return schema.find("van", id); // Fetch specific van
+            return schema.find("van", id);
         });
 
         // Get vans by host ID
@@ -60,5 +57,5 @@ createServer({
             const id = request.params.id;
             return schema.where("van", { id, hostId: "123" });
         });
-    },
+    }
 });
