@@ -1,6 +1,14 @@
 import { NavLink } from "react-router-dom"
 
 const Header = () => {
+
+    const isLoggedin = localStorage.getItem("loggedin")
+
+
+    const fakeLogOut = () => {
+        localStorage.removeItem("loggedin")
+    }
+
     return (
         <header>
             <NavLink className="site-logo" to="/">#VanLife</NavLink>
@@ -20,12 +28,22 @@ const Header = () => {
                     to="/vans"
                 >
                     Vans</NavLink>
-                <NavLink to="login" className="login-link">
-                    <img
-                        src="/avatar-icon.png"
-                        className="login-icon"
-                    />
-                </NavLink>
+                {isLoggedin === "true" ?
+                    <NavLink to="." className="login-link">
+                        <button onClick={
+                            fakeLogOut
+                        }>
+                            Logout
+                        </button>
+                    </NavLink>
+                    :
+                    <NavLink to="login" className="login-link">
+                        <img
+                            src="/avatar-icon.png"
+                            className="login-icon"
+                        />
+                    </NavLink>
+                }
             </nav>
         </header>
     )

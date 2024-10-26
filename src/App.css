@@ -10,7 +10,7 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-#root {
+/* #root {
   max-width: 550px;
   margin: 20px auto;
   height: fit-content;
@@ -18,7 +18,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-}
+} */
 
 body::-webkit-scrollbar {
   display: none;
@@ -535,6 +535,16 @@ a.active-link {
 
 .login-first {
   color: red;
+}
+
+.login-link button {
+  background-color: transparent;
+  text-decoration: none;
+  color: #4D4D4D;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 @media (max-width: 580px) {

@@ -1,6 +1,6 @@
 // import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { loginUser } from "./api"
 
 export default function Login() {
@@ -11,15 +11,19 @@ export default function Login() {
 
     const [status, setStatus] = useState("idle")
     const [error, setError] = useState<{ message: string } | null>(null)
-
     const location = useLocation()
+    const navigate = useNavigate()
+    const fromLoc = location.state?.fromLoc || "/host";
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         setStatus("submitting")
         loginUser(loginFormData)
             .then(data => {
+                setError(null)
                 console.log(data)
+                localStorage.setItem("loggedin", "true")
+                navigate(fromLoc, { replace: true })
             })
             .catch(err => {
                 setError(err)
