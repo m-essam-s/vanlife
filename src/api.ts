@@ -7,6 +7,13 @@ interface Van {
     type: string;
 }
 
+interface User {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+}
+
 const getVans = async (id: string): Promise<Van[] | Van> => {
     const url = id ? `/api/vans/${id}` : "/api/vans";
     const res = await fetch(url);
@@ -39,4 +46,25 @@ const getHostVans = async (id: string): Promise<Van[] | Van> => {
     return id ? data.vans[0] : data.vans;
 };
 
-export { getVans, getHostVans };
+const loginUser = async (creds: {
+    email: string;
+    password: string;
+}): Promise<User> => {
+    const res = await fetch("/api/login",
+        { method: "post", body: JSON.stringify(creds) }
+    )
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw {
+            message: data.message,
+            statusText: res.statusText,
+            status: res.status
+        };
+    }
+
+    return data;
+};
+
+export { getVans, getHostVans, loginUser };

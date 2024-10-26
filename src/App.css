@@ -533,6 +533,10 @@ a.active-link {
   font-family: "Inter", sans-serif;
 }
 
+.login-first {
+  color: red;
+}
+
 @media (max-width: 580px) {
   #root {
     margin: 10px;
