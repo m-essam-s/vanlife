@@ -28,42 +28,30 @@ import HostVanPhotos from "./pages/Host/HostVanPhotos";
 import NotFound from "./pages/NotFound";
 import Error from "./components/Error";
 import Login from "./Login";
+import AuthRequired from "./components/AuthRequired";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
     <Route path="about" element={<About />} />
     <Route path="login" element={<Login />} />
-    <Route
-      path="vans"
-      element={<Vans />}
-      errorElement={<Error />}
-      loader={vansLoader}
-    />
-    <Route
-      path="vans/:id"
-      element={<VanDetail />}
-      loader={vanDetailLoader}
-    />
-    <Route path="host" element={<HostLayout />}>
-      <Route index element={<Dashboard />} />
-      <Route path="income" element={<Income />} />
-      <Route path="reviews" element={<Reviews />} />
-      <Route
-        path="vans"
-        element={<HostVans />}
-        loader={hostVansLoader}
-      />
-      <Route
-        path="vans/:id"
-        element={<HostVanDetail />}
-        loader={hostVanDetailLoader}
-      >
-        <Route index element={<HostVanInfo />} />
-        <Route path="pricing" element={<HostVanPricing />} />
-        <Route path="photos" element={<HostVanPhotos />} />
+    <Route path="vans" element={<Vans />} errorElement={<Error />} loader={vansLoader} />
+    <Route path="vans/:id" element={<VanDetail />} loader={vanDetailLoader} />
+
+    <Route element={<AuthRequired />}>
+      <Route path="host" element={<HostLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="income" element={<Income />} />
+        <Route path="reviews" element={<Reviews />} />
+        <Route path="vans" element={<HostVans />} loader={hostVansLoader} />
+        <Route path="vans/:id" element={<HostVanDetail />} loader={hostVanDetailLoader} >
+          <Route index element={<HostVanInfo />} />
+          <Route path="pricing" element={<HostVanPricing />} />
+          <Route path="photos" element={<HostVanPhotos />} />
+        </Route>
       </Route>
     </Route>
+
     <Route path="*" element={<NotFound />} />
   </Route>
 ));
