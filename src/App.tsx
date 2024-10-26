@@ -12,8 +12,8 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 
-import Vans, { loader as vansLoader } from "./pages/Vans/Vans";
-import VanDetail, { loader as vanDetailLoader } from "./pages/Vans/VanDetail";
+import Vans from "./pages/Vans/Vans";
+import VanDetail from "./pages/Vans/VanDetail";
 
 import HostLayout from "./components/HostLayout";
 import Dashboard from "./pages/Host/Dashboard";
@@ -26,7 +26,6 @@ import HostVanPricing from "./pages/Host/HostVanPricing";
 import HostVanPhotos from "./pages/Host/HostVanPhotos";
 
 import NotFound from "./pages/NotFound";
-import Error from "./components/Error";
 import Login from "./Login";
 import AuthRequired from "./components/AuthRequired";
 
@@ -35,8 +34,8 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route index element={<Home />} />
     <Route path="about" element={<About />} />
     <Route path="login" element={<Login />} />
-    <Route path="vans" element={<Vans />} errorElement={<Error />} loader={vansLoader} />
-    <Route path="vans/:id" element={<VanDetail />} loader={vanDetailLoader} />
+    <Route path="vans" element={<Vans />} />
+    <Route path="vans/:id" element={<VanDetail />} />
 
     <Route element={<AuthRequired />}>
       <Route path="host" element={<HostLayout />}>

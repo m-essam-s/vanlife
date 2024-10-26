@@ -49,6 +49,8 @@ createServer({
             return schema.all("van");
         });
 
+        this.passthrough("https://firestore.googleapis.com/**");
+
         // Get a specific van by ID
         this.get("/vans/:id", (schema: AppSchema, request) => {
             const id = request.params.id;

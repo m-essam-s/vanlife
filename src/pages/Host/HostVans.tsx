@@ -13,7 +13,7 @@ interface Van {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function loader() {
-    return getHostVans(""); // null is passed to get all vans
+    return getHostVans(); // null is passed to get all vans
 }
 
 const HostVans = () => {

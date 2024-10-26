@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet, useLoaderData, LoaderFunctionArgs } from "react-router-dom"
-import { getHostVans } from "../../api"
+import { getHostVan } from "../../api"
 
 interface Van {
     id: string;
@@ -19,7 +19,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     }
 
     try {
-        const van = await getHostVans(params.id as string) as Van;
+        const van = await getHostVan(params.id as string) as Van;
         return van;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {

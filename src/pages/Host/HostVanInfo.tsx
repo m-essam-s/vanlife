@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom"
-import { Van } from "./HostVanDetail";  // Import the Van interface
+import { Van } from "../../definitions";  // Import the Van interface
 
 const HostVanInfo = () => {
     const { currentVan } = useOutletContext<{ currentVan: Van }>()  // Specify the type here

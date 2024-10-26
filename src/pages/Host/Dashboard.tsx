@@ -16,7 +16,7 @@ export default function Dashboard() {
     const [error, setError] = useState<Error | null>(null)
     useEffect(() => {
         setLoading(true)
-        getHostVans("")
+        getHostVans()
             .then(data => setVans(data as Van[]))
             .catch(err => setError(err))
             .finally(() => setLoading(false))

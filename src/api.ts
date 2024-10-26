@@ -1,3 +1,8 @@
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase.config";
+
+const vansCollectionRef = collection(db, "vans")
+
 interface Van {
     id: string;
     name: string;
@@ -14,37 +19,71 @@ interface User {
     password: string;
 }
 
-const getVans = async (id: string): Promise<Van[] | Van> => {
-    const url = id ? `/api/vans/${id}` : "/api/vans";
-    const res = await fetch(url);
+const getVans = async (): Promise<Van[]> => {
+    const snapshot = await getDocs(vansCollectionRef)
+    const vans = snapshot.docs.map(doc => doc.data() as Van)
+    return vans
+}
 
-    if (!res.ok) {
-        throw {
-            message: "Failed to fetch vans",
-            statusText: res.statusText,
-            status: res.status
-        };
-    }
+const getVan = async (id: string): Promise<Van> => {
+    const snapshot = await getDocs(vansCollectionRef)
+    const van = snapshot.docs.find(doc => doc.id === id)?.data() as Van
+    return van
+}
 
-    const data = await res.json();
-    return id ? data.van : data.vans; // Return a single van if ID is provided
-};
+const getHostVans = async (): Promise<Van[]> => {
+    const snapshot = await getDocs(vansCollectionRef)
+    const vans = snapshot.docs.map(doc => doc.data() as Van)
+    return vans
+}
 
-const getHostVans = async (id: string): Promise<Van[] | Van> => {
-    const url = id ? `/api/host/vans/${id}` : "/api/host/vans";
-    const res = await fetch(url);
+const getHostVan = async (id: string): Promise<Van> => {
+    const snapshot = await getDocs(vansCollectionRef)
+    const van = snapshot.docs.find(doc => doc.id === id)?.data() as Van
+    return van
+}
 
-    if (!res.ok) {
-        throw {
-            message: "Failed to fetch vans",
-            statusText: res.statusText,
-            status: res.status
-        };
-    }
+// const loginUser = async (creds: {
+//     email: string;
+//     password: string;
+// }): Promise<User> => {
+//     const snapshot = await getDocs(usersCollectionRef)
+//     const user = snapshot.docs.find(doc => doc.data().email === creds.email && doc.data().password === creds.password)?.data() as User
+//     return user
+// };
 
-    const data = await res.json();
-    return id ? data.vans[0] : data.vans;
-};
+
+// const getVans = async (id: string): Promise<Van[] | Van> => {
+//     const url = id ? `/api/vans/${id}` : "/api/vans";
+//     const res = await fetch(url);
+
+//     if (!res.ok) {
+//         throw {
+//             message: "Failed to fetch vans",
+//             statusText: res.statusText,
+//             status: res.status
+//         };
+//     }
+
+//     const data = await res.json();
+//     return id ? data.van : data.vans; // Return a single van if ID is provided
+// };
+
+// const getHostVans = async (id: string): Promise<Van[] | Van> => {
+//     const url = id ? `/api/host/vans/${id}` : "/api/host/vans";
+//     const res = await fetch(url);
+
+//     if (!res.ok) {
+//         throw {
+//             message: "Failed to fetch vans",
+//             statusText: res.statusText,
+//             status: res.status
+//         };
+//     }
+
+//     const data = await res.json();
+//     return id ? data.vans[0] : data.vans;
+// };
 
 const loginUser = async (creds: {
     email: string;
@@ -67,4 +106,10 @@ const loginUser = async (creds: {
     return data;
 };
 
-export { getVans, getHostVans, loginUser };
+export {
+    getVans,
+    getVan,
+    getHostVans,
+    getHostVan,
+    loginUser
+};
